@@ -31,10 +31,22 @@ export class Employee {
   @JoinColumn({ name: 'department_id' })
   department: Department | null;
 
+  @Column({ name: 'manager_id', type: 'bigint', nullable: true })
+  managerId: string | null;
+
+  @ManyToOne(() => Employee, (employee) => employee.directReports, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'manager_id' })
+  manager: Employee | null;
+
+  @OneToMany(() => Employee, (employee) => employee.manager)
+  directReports: Employee[];
+
   @Column({
     name: 'created_at',
     type: 'timestamptz',
-    nullable: true,
+    nullable: false,
     default: () => 'now()',
   })
   createdAt: Date | null;

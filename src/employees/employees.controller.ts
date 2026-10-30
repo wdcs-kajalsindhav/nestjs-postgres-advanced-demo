@@ -74,9 +74,54 @@ export class EmployeesController {
       offset === undefined ? 0 : Number(offset),
     );
   }
-  
+
   @Get('advanced-salary-analytics')
   async advancedSalaryAnalytics() {
     return this.employeesService.advancedSalaryAnalytics();
+  }
+
+  @Get('hierarchy')
+  employeeHierarchy() {
+    return this.employeesService.employeeHierarchy();
+  }
+
+  @Get('conditional-aggregation')
+  conditionalAggregation() {
+    return this.employeesService.conditionalAggregation();
+  }
+
+  @Get('window-frames')
+  salaryWindowFrames() {
+    return this.employeesService.salaryWindowFrames();
+  }
+
+  @Get('set-operations')
+  employeeSetOperations() {
+    return this.employeesService.employeeSetOperations();
+  }
+
+  @Get('keyset-pagination')
+  keysetPagination(
+    @Query('cursorSalary') cursorSalary?: string,
+    @Query('cursorId') cursorId?: string,
+    @Query('limit') limit?: string,
+  ) {
+    const parsedLimit = limit === undefined ? 10 : Number(limit);
+
+    return this.employeesService.keysetPagination(
+      cursorSalary,
+      cursorId,
+      parsedLimit,
+    );
+  }
+
+  @Get('department-json')
+  departmentsWithEmployeesJson() {
+    return this.employeesService.departmentsWithEmployeesJson();
+  }
+
+  @Get('highest-paid-per-department')
+  highestPaidPerDepartment() {
+    return this.employeesService.highestPaidPerDepartment();
   }
 }
